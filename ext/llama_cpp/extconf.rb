@@ -38,8 +38,11 @@ UNAME_M = RbConfig::CONFIG['build_cpu'] || RbConfig::CONFIG['host_cpu'] || RbCon
 
 # rubocop:disable Layout/LineLength
 if UNAME_M.match?(/x86_64|i686/) && try_compile('#include <stdio.h>', '-march=native -mtune=native')
-  $CFLAGS << ' -march=native -mtune=native'
-  $CXXFLAGS << ' -march=native -mtune=native'
+  # FIXME: Not working on VirtualBox
+  # $CFLAGS << ' -march=native -mtune=native'
+  # $CXXFLAGS << ' -march=native -mtune=native'
+  $CFLAGS << ' -march=haswell -mtune=native'
+  $CXXFLAGS << ' -march=haswell -mtune=native'
 elsif UNAME_M.match?(/aarch64/) && try_compile('#include <stdio.h>', '-mcpu=native')
   $CFLAGS << ' -mcpu=native'
   $CXXFLAGS << ' -mcpu=native'
